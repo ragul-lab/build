@@ -1,0 +1,25 @@
+name: Stream Service Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Build docker image
+      run: docker build -t 192.168.199.128:8000/stream:v1 .
+
+    - name: Push docker image to local registry
+      run: docker push 192.168.199.128:8000/stream:v1
+
+    - name: Run stream service
+      run: docker run --name stream -itd -p 3001:3001 192.168.199.128:8000/stream:v1
+
+    - name: Acknowledge
+      run: echo "Stream service docker image build successful."
