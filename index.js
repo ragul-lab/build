@@ -32,4 +32,4 @@ app.get("*", function (req, res) {
     res.sendFile(__dirname + "/interface/index.html");
 });
 
-server.listen(3001, () => console.log("Streaming on port 3001"))
+server.listen(3001, () => console.log("Streaming on port 3001"));
