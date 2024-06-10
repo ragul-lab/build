@@ -1,0 +1,25 @@
+name: Realm Service Build
+
+on:
+  push:
+    branches:
+      - db
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Build docker image
+      run: docker build -t 192.168.199.128:8000/db:v1 .
+
+    - name: Push docker image to local registry
+      run: docker push 192.168.199.128:8000/db:v1
+
+    - name: Run db service
+      run: docker run --name db -itd -p 3004:3004 192.168.199.128:8000/db:v1
+
+    - name: Acknowledge
+      run: echo "db service docker image build successful."
