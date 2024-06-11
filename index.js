@@ -21,6 +21,10 @@ const realmConfig = {
     ],
 }
 
+app.get('/', (req, res) => {
+    res.send('Realm database server running')
+})
+
 app.post('/create', (req, res) => {
     Realm.open(realmConfig)
     .then(realm => {
